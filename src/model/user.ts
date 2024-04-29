@@ -20,7 +20,7 @@ const MessageSchema: Schema<Message> = new Schema({
 export interface User extends Document {
   username: string;
   email: string;
-  passsword: string;
+  password: string;
   verifyCode: string;
   verifyCodeExpiry: Date;
   isVerifed: boolean;
@@ -44,7 +44,7 @@ const UserSchema: Schema<User> = new Schema({
       "please enter a valid email",
     ],
   },
-  passsword: {
+  password: {
     type: String,
     required: [true, "Password is requried"],
   },

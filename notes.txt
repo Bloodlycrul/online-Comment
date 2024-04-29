@@ -1,0 +1,21 @@
+All the flow chart Summary
+
+-routes
+accept Meessage
+Next auth 
+check username
+get-message
+send message
+Sign up
+Sign in 
+suggest message
+verify-code
+
+
+
+
+Functions 
+Database Connection file
+User Model file
+Schemas
+middleware file

@@ -10,6 +10,11 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "jonedoe@gmail.com",
+        },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any): Promise<any> {
@@ -32,7 +37,7 @@ export const authOptions: NextAuthOptions = {
 
           const verifyPassword = await bcrypt.compare(
             credentials.password,
-            user.passsword
+            user.password
           );
 
           if (verifyPassword) {
@@ -49,15 +54,6 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user._id = token._id;
-        session.user.isVerified = token.isVerified;
-        session.user.isAccpectedMessage = token.isAccpectedMessage;
-        session.user.username = token.username;
-      }
-      return session;
-    },
     async jwt({ token, user }) {
       if (user) {
         token._id = user._id?.toString();
@@ -67,10 +63,23 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    async session({ session, token }) {
+      if (token) {
+        session.user._id = token._id;
+        session.user.isVerified = token.isVerified;
+        session.user.isAccpectedMessage = token.isAccpectedMessage;
+        session.user.username = token.username;
+      }
+      return session;
+    },
   },
 
   session: {
     strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/sign-in",
   },
 
   secret: process.env.NEXTAUTH_SECRET,
